@@ -1,39 +1,15 @@
-import { useEffect, useState } from "react";
-import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "firebase/auth";
+"use client";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyB0ciYGBpDRy4CZzpNfPYVQz7GgRajdJ1E",
-    authDomain: "https://secure-google-site.vercel.app/",
-    projectId: "stafify-cmd"
-};
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-    const [user, setUser] = useState(null);
+    const router = useRouter();
 
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            setUser(user);
-        });
-    }, []);
+        // Redirect the user to your Google Site immediately
+        router.replace("siahbautista.com");
+    }, [router]);
 
-    const login = () => {
-        const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider);
-    };
-
-    return (
-        <div>
-            {user ? (
-                <iframe src="/proxy" width="100%" height="1000px"></iframe>
-            ) : (
-                <div>
-                    <h2>Please Sign In</h2>
-                    <button onClick={login}>Sign in with Google</button>
-                </div>
-            )}
-        </div>
-    );
+    return <h2>Redirecting...</h2>; // Temporary text before redirect
 }
